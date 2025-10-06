@@ -1,0 +1,61 @@
+NSOMA COMMUNITY DEVELOPMENT WEBSITE - DEPLOYMENT INSTRUCTIONS
+================================================================
+
+Your website is ready for deployment! Follow these steps:
+
+STEP 1: CREATE GITHUB REPOSITORY
+----------------------------------
+1. Go to https://github.com and sign in
+2. Click "+" button → "New repository"
+3. Repository name: nsoma-community-development
+4. Description: Official website for Nsoma Community Development NPO
+5. Make it PUBLIC (required for free GitHub Pages)
+6. Don't initialize with README
+
+STEP 2: CONNECT TO GITHUB
+--------------------------
+After creating the repository, GitHub will show you a URL like:
+https://github.com/YOUR_USERNAME/nsoma-community-development.git
+
+Run these commands in PowerShell (replace YOUR_REPO_URL):
+
+git remote add origin YOUR_REPO_URL
+git branch -M main
+git push -u origin main
+
+STEP 3: ENABLE GITHUB PAGES
+----------------------------
+1. In your GitHub repository, go to Settings
+2. Scroll down to "Pages" in the left sidebar
+3. Under "Source", select "Deploy from a branch"
+4. Choose "main" branch and "/ (root)" folder
+5. Click "Save"
+
+STEP 4: ACCESS YOUR WEBSITE
+----------------------------
+Your website will be available at:
+https://YOUR_USERNAME.github.io/nsoma-community-development
+
+It may take a few minutes to become available.
+
+WEBSITE FEATURES INCLUDED
+=========================
+✅ Mobile-responsive design
+✅ Interactive contact forms
+✅ Donation functionality
+✅ Photo gallery with 5 authentic images
+✅ Professional navigation
+✅ All buttons functional
+✅ SEO optimized
+✅ Fast loading
+✅ Professional design
+
+TECHNICAL DETAILS
+=================
+- Main file: index.html (required for GitHub Pages)
+- All images included and optimized
+- No external dependencies except fonts and icons
+- Fully self-contained website
+- Designer credit: Maanda Netshisumbewa
+
+Need help? Contact: maandanetshi657@gmail.com
