@@ -1,0 +1,11 @@
+# Exclude old design files
+design-replica.html
+new-website.html
+modern-design.html
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

@@ -1,0 +1,2664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nsoma Community Development NPO - Empowering Communities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #0f3a26;
+            --secondary-green: #1e5a3a;
+            --accent-green: #2d7a4f;
+            --light-green: #e8f5e8;
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --text-dark: #1f2937;
+            --text-gray: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Modern Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 58, 38, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .logo-text {
+            color: var(--white);
+        }
+
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .logo-text .tagline {
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::before {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .mobile-menu-btn span {
+            width: 100%;
+            height: 3px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile navigation open state */
+        .nav-links.nav-open {
+            display: flex !important;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            border-top: 1px solid rgba(45, 122, 79, 0.1);
+        }
+
+        .nav-links.nav-open a {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(45, 122, 79, 0.1);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-links.nav-open a:last-child {
+            border-bottom: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: 
+                linear-gradient(135deg, rgba(15, 58, 38, 0.3) 0%, rgba(26, 74, 46, 0.25) 50%, rgba(45, 122, 79, 0.2) 100%),
+                url('celebration.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Fix background attachment on mobile devices */
+        @media (max-width: 768px) {
+            .hero {
+                background-attachment: scroll;
+            }
+            
+            /* Ensure body has proper padding for fixed navbar */
+            body {
+                padding-top: 70px;
+            }
+            
+            /* Fix navbar positioning */
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(15, 58, 38, 0.98) !important;
+            }
+            
+            /* Ensure mobile menu shows properly */
+            .mobile-menu-btn {
+                display: flex !important;
+            }
+            
+            /* Fix gallery for mobile */
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            /* Fix sections padding */
+            .section {
+                padding: 2rem 0 !important;
+            }
+            
+            .section-container {
+                padding: 0 1rem !important;
+            }
+            
+            /* Fix contact items */
+            .contact-item {
+                margin-bottom: 1rem;
+                padding: 1rem;
+            }
+            
+            /* Fix program cards */
+            .programs-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            /* Ensure text is readable */
+            .hero-content {
+                background: rgba(15, 58, 38, 0.4) !important;
+                backdrop-filter: blur(15px) !important;
+            }
+
+            /* Better section spacing on mobile */
+            .section {
+                padding: 2rem 0 !important;
+            }
+
+            .section-title {
+                font-size: 1.8rem !important;
+                text-align: center;
+            }
+
+            .section-subtitle {
+                font-size: 1rem !important;
+                text-align: center;
+            }
+
+            /* Improve About section on mobile */
+            .about-content {
+                text-align: center;
+                padding: 1.5rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(15, 58, 38, 0.1) 0%, transparent 50%, rgba(15, 58, 38, 0.05) 100%);
+            z-index: 1;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            color: var(--white);
+            background: rgba(15, 58, 38, 0.35);
+            padding: 2.5rem;
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-badge i {
+            color: var(--gold-light);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7));
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--gold-light);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--primary-green);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            z-index: 2;
+        }
+
+        .hero-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-card-1 {
+            top: 0;
+            left: 0;
+            width: 280px;
+            background: linear-gradient(135deg, var(--white), var(--light-green));
+        }
+
+        .hero-card-2 {
+            top: 150px;
+            right: 0;
+            width: 250px;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            color: var(--primary-green);
+        }
+
+        .hero-card-3 {
+            bottom: 0;
+            left: 100px;
+            width: 260px;
+            background: var(--white);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-green);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-card-2 .card-icon {
+            background: var(--primary-green);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--light-green);
+            color: var(--accent-green);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--bg-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--accent-green);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--light-green);
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .feature-text {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Programs Section */
+        .programs {
+            background: var(--white);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--accent-green), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .program-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-green), var(--secondary-green));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .program-description {
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-features {
+            list-style: none;
+        }
+
+        .program-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .program-features li i {
+            color: var(--accent-green);
+            font-size: 0.75rem;
+        }
+
+        /* Values Section */
+        .values {
+            background: var(--primary-green);
+            color: var(--white);
+        }
+
+        .values .section-badge {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gold-light);
+        }
+
+        .values .section-title {
+            color: var(--white);
+        }
+
+        .values .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gold);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-green);
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .value-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 5rem 0;
+        }
+
+        .gallery .section-badge {
+            background: rgba(15, 58, 38, 0.1);
+            color: var(--primary-green);
+        }
+
+        .gallery .section-title {
+            color: var(--primary-green);
+        }
+
+        .gallery .section-subtitle {
+            color: var(--text-light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            background: var(--white);
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                transparent 60%,
+                rgba(15, 58, 38, 0.8) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-info {
+            color: var(--white);
+        }
+
+        .gallery-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+
+        .gallery-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .gallery-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .gallery-placeholder h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-placeholder p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light-green);
+            border-radius: 16px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-details p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-highlight {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-visual {
+                height: 400px;
+            }
+
+            .hero-card {
+                position: relative;
+                margin-bottom: 2rem;
+                transform: none !important;
+            }
+
+            .hero-card-1,
+            .hero-card-2,
+            .hero-card-3 {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                bottom: auto;
+                width: 100%;
+                max-width: 350px;
+                margin: 0 auto 2rem;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+                z-index: 1001;
+                position: relative;
+            }
+
+            /* Hide desktop navigation on tablet */
+            .nav-links {
+                display: none !important;
+            }
+
+            /* Show mobile navigation when active */
+            .nav-links.nav-open {
+                display: flex !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .navbar {
+                padding: 0.5rem 0;
+            }
+
+            .nav-container {
+                padding: 0.5rem 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 100%;
+            }
+
+            .logo {
+                justify-content: flex-start;
+                gap: 0.5rem;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .logo-text h1 {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+
+            .logo-text .tagline {
+                font-size: 0.6rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(15, 58, 38, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                display: block;
+                text-align: left;
+                border-radius: 0;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: none;
+            }
+
+            /* Mobile menu toggle (we'll use CSS only) */
+            .nav-links.show {
+                display: flex;
+            }
+
+            /* Mobile Hero Section */
+            .hero {
+                min-height: 70vh;
+                padding: 8rem 1rem 2rem;
+            }
+
+            .hero-content {
+                padding: 1.5rem;
+                background: rgba(15, 58, 38, 0.5);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                line-height: 1.3;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            /* Mobile Sections */
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .section-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .section-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            /* Mobile Program Cards */
+            .programs-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .program-card {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .program-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .program-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+
+            .program-features li {
+                font-size: 0.85rem;
+                padding: 0.3rem 0;
+            }
+
+            /* Mobile Gallery */
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .gallery-item {
+                border-radius: 15px;
+                margin-bottom: 1rem;
+            }
+
+            /* Mobile Values */
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .value-card {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            /* Mobile Contact */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .contact-icon {
+                align-self: center;
+            }
+
+            /* Mobile About */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-content {
+                padding: 1.5rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+        }
+
+        /* Mobile Tablet Devices */
+        @media (max-width: 768px) {
+            /* Mobile Navigation */
+            .navbar {
+                padding: 0.5rem 0;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(15, 58, 38, 0.98) !important;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-container {
+                padding: 0.5rem 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                max-width: 100%;
+            }
+
+            .logo {
+                justify-content: flex-start;
+                gap: 0.5rem;
+                z-index: 1001;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+            .logo-text h1 {
+                font-size: 0.9rem;
+                line-height: 1.2;
+            }
+
+            .logo-text .tagline {
+                font-size: 0.6rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(15, 58, 38, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+            }
+
+            .nav-links li {
+                margin: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+                display: block;
+                text-align: left;
+                border-radius: 0;
+                color: white;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex !important;
+                z-index: 1001;
+            }
+
+            /* Hero Section Mobile */
+            .hero {
+                min-height: 90vh;
+                background-position: center center;
+                padding-top: 80px;
+                background-attachment: scroll;
+            }
+
+            .hero-container {
+                padding: 0 1rem;
+                gap: 2rem;
+                grid-template-columns: 1fr;
+            }
+
+            /* Hide hero visual cards on mobile */
+            .hero-visual {
+                display: none;
+            }
+
+            .hero-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem 0;
+                background: rgba(15, 58, 38, 0.4);
+                backdrop-filter: blur(15px);
+                width: 100%;
+                max-width: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.8rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .hero-visual {
+                height: 300px;
+                margin-top: 1rem;
+            }
+
+            /* Sections Mobile */
+            body {
+                padding-top: 70px;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .section-badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            /* Programs Mobile */
+            .programs-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .program-card {
+                padding: 1.5rem;
+                text-align: center;
+            }
+
+            .program-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .program-description {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+
+            .program-features li {
+                font-size: 0.85rem;
+                padding: 0.3rem 0;
+            }
+
+            /* Gallery Mobile */
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+
+            /* About Mobile */
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+
+            /* Contact Mobile */
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+        }
+
+        /* Extra Small Mobile Devices */
+        @media (max-width: 480px) {
+            .hero {
+                min-height: 85vh;
+                padding-top: 70px;
+            }
+
+            .hero-container {
+                padding: 0 0.75rem;
+                gap: 1.5rem;
+            }
+
+            .hero-content {
+                padding: 1.5rem 1rem;
+                border-radius: 16px;
+                margin: 0.5rem 0;
+            }
+
+            .hero-title {
+                font-size: 1.8rem;
+                line-height: 1.3;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 1.2rem;
+                line-height: 1.5;
+            }
+
+            .hero-stats {
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .stat-item {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .stat-number {
+                font-size: 1.3rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: stretch;
+            }
+
+            .btn {
+                padding: 0.9rem 1.5rem;
+                font-size: 0.9rem;
+                justify-content: center;
+            }
+
+            .hero-visual {
+                height: 250px;
+                margin-top: 0.5rem;
+            }
+
+            .hero-card {
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .program-card,
+            .value-card {
+                padding: 1.2rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .nav-links a {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                padding: 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-links a,
+            .btn,
+            .program-card,
+            .value-card {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .program-card:hover,
+            .value-card:hover,
+            .gallery-item:hover {
+                transform: none;
+            }
+
+            .gallery-item {
+                position: relative;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-icon">
+                    <img src="logo.jpg" alt="Nsoma Community Development Logo">
+                </div>
+                <div class="logo-text">
+                    <h1>Nsoma Community Development</h1>
+                    <div class="tagline">NPO</div>
+                </div>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                <li><a href="#about" onclick="closeMenu()">About</a></li>
+                <li><a href="#programs" onclick="closeMenu()">Programs</a></li>
+                <li><a href="#gallery" onclick="closeMenu()">Gallery</a></li>
+                <li><a href="#values" onclick="closeMenu()">Values</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-star"></i>
+                    <span>Empowering Communities Since 2020</span>
+                </div>
+                <h1 class="hero-title">Building Bridges Through <span class="highlight">Skills Development</span></h1>
+                <p class="hero-subtitle">
+                    We transform lives by providing essential skills training, mentorship, and support to vulnerable communities across South Africa, creating pathways to employment and entrepreneurship.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">Lives Transformed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Communities Served</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">85%</span>
+                        <span class="stat-label">Employment Rate</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#programs" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        <span>Explore Programs</span>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-heart"></i>
+                        <span>Get Involved</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card hero-card-1">
+                    <div class="card-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3 class="card-title">Digital Skills Training</h3>
+                    <p class="card-text">Comprehensive computer literacy programs preparing participants for the digital economy.</p>
+                </div>
+                <div class="hero-card hero-card-2">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="card-title">Community Impact</h3>
+                    <p class="card-text">Directly transforming lives through targeted skills development and mentorship programs.</p>
+                </div>
+                <div class="hero-card hero-card-3">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title">Sustainable Growth</h3>
+                    <p class="card-text">Creating long-term economic opportunities and community resilience through education.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section about">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-info-circle"></i>
+                    <span>About Us</span>
+                </div>
+                <h2 class="section-title">Bridging Communities Through Education</h2>
+                <p class="section-subtitle">
+                    Nsoma Community Development NPO is dedicated to closing the gap between underdeveloped and developing communities through comprehensive skills development, capacity building, and mentorship programs.
+                </p>
+            </div>
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-text">
+                        Our organization focuses on empowering vulnerable populations including women, youth, orphans, and disabled individuals by providing them with essential skills training that enables employment opportunities and entrepreneurial ventures.
+                    </p>
+                    <p class="about-text">
+                        Through our innovative programs, we create sustainable pathways out of poverty while building stronger, more resilient communities across South Africa.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <span class="feature-text">Skills Training</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <span class="feature-text">Mentorship</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <span class="feature-text">Job Placement</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <span class="feature-text">Entrepreneurship</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="hero-card hero-card-1" style="position: relative; top: 0; left: 0; width: 100%;">
+                        <div class="card-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <h3 class="card-title">Our Mission</h3>
+                        <p class="card-text">To create opportunities for marginalized groups in communities by introducing them to essential skills programs that will improve their lives and create sustainable livelihoods.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section programs">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-tools"></i>
+                    <span>Our Programs & Services</span>
+                </div>
+                <h2 class="section-title">Comprehensive Skills & Community Services</h2>
+                <p class="section-subtitle">
+                    We offer a diverse range of training programs and community services designed to meet the evolving needs of today's job market, entrepreneurial landscape, and community empowerment.
+                </p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="program-title">Digital Literacy & Computing</h3>
+                    <p class="program-description">
+                        Comprehensive computer and digital skills training covering software applications, internet skills, and technology for modern workplace readiness.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Microsoft Office Suite</li>
+                        <li><i class="fas fa-check"></i> Internet & Email Skills</li>
+                        <li><i class="fas fa-check"></i> Digital Communication</li>
+                        <li><i class="fas fa-check"></i> Data Management</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="program-title">Entrepreneurship & Business Development</h3>
+                    <p class="program-description">
+                        Complete business training covering venture creation, financial management, marketing strategies, and practical skills for successful small businesses.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Business Planning</li>
+                        <li><i class="fas fa-check"></i> Financial Management</li>
+                        <li><i class="fas fa-check"></i> Marketing & Branding</li>
+                        <li><i class="fas fa-check"></i> Digital Marketing</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="program-title">Professional & Life Skills</h3>
+                    <p class="program-description">
+                        Essential personal development and professional skills training covering communication, leadership, problem-solving, and workplace readiness.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Communication Excellence</li>
+                        <li><i class="fas fa-check"></i> Leadership Development</li>
+                        <li><i class="fas fa-check"></i> Problem Solving</li>
+                        <li><i class="fas fa-check"></i> Time Management</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <h3 class="program-title">Retail & Customer Service</h3>
+                    <p class="program-description">
+                        Professional retail training focusing on cashier operations, customer service excellence, and retail management skills.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> POS System Operations</li>
+                        <li><i class="fas fa-check"></i> Customer Service Excellence</li>
+                        <li><i class="fas fa-check"></i> Cash Handling</li>
+                        <li><i class="fas fa-check"></i> Inventory Management</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="program-title">Food Safety & Compliance</h3>
+                    <p class="program-description">
+                        Essential food handling and safety training for the hospitality industry, covering hygiene standards, safety protocols, and certification requirements.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Food Hygiene Standards</li>
+                        <li><i class="fas fa-check"></i> Safety Protocols</li>
+                        <li><i class="fas fa-check"></i> Health Regulations</li>
+                        <li><i class="fas fa-check"></i> Certification Preparation</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="program-title">GBV Victim Empowerment</h3>
+                    <p class="program-description">
+                        Specialized support services for gender-based violence survivors including counseling, legal assistance, empowerment programs, and community advocacy.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Counseling Support</li>
+                        <li><i class="fas fa-check"></i> Legal Assistance</li>
+                        <li><i class="fas fa-check"></i> Empowerment Programs</li>
+                        <li><i class="fas fa-check"></i> Community Advocacy</li>
+                    </ul>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="program-title">Human Rights Education</h3>
+                    <p class="program-description">
+                        Human rights education, advocacy, and support services promoting dignity, equality, and justice within communities and legal frameworks.
+                    </p>
+                    <ul class="program-features">
+                        <li><i class="fas fa-check"></i> Rights Education</li>
+                        <li><i class="fas fa-check"></i> Community Advocacy</li>
+                        <li><i class="fas fa-check"></i> Legal Support</li>
+                        <li><i class="fas fa-check"></i> Justice Promotion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section id="values" class="section values">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-heart"></i>
+                    <span>Our Values</span>
+                </div>
+                <h2 class="section-title">Principles That Guide Us</h2>
+                <p class="section-subtitle">
+                    Our core values shape every interaction, decision, and program we deliver, ensuring authentic and impactful community development.
+                </p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="value-title">Respect</h3>
+                    <p class="value-description">We honor the dignity and worth of every individual, celebrating diversity and fostering inclusive environments.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="value-title">Transparency</h3>
+                    <p class="value-description">We operate with openness and accountability, ensuring clear communication and ethical practices in all our activities.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="value-title">Integrity</h3>
+                    <p class="value-description">We uphold the highest ethical standards, acting with honesty and consistency in all our commitments and relationships.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="value-title">Honesty</h3>
+                    <p class="value-description">We build trust through truthful communication and authentic relationships with our communities and partners.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="value-title">Ubuntu</h3>
+                    <p class="value-description">We embrace the African philosophy of interconnectedness, believing that our collective humanity strengthens us all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section gallery">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-images"></i>
+                    <span>Our Gallery</span>
+                </div>
+                <h2 class="section-title">Moments That Matter</h2>
+                <p class="section-subtitle">
+                    Discover the impact of our work through these meaningful moments captured in our community programs and events.
+                </p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="training-workshop.jpg" alt="Training Workshop" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="community-gathering.jpg" alt="Community Gathering" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="achievement-ceremony.jpg" alt="Achievement Ceremony" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="community-group.jpg" alt="Community Group Event" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="cultural-dance.jpg" alt="Cultural Dance Event" class="gallery-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-badge">
+                    <i class="fas fa-envelope"></i>
+                    <span>Get in Touch</span>
+                </div>
+                <h2 class="section-title">Connect With Us</h2>
+                <p class="section-subtitle">
+                    Ready to make a difference? Whether you want to volunteer, partner with us, or learn more about our programs, we'd love to hear from you.
+                </p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3 style="color: var(--text-dark); margin-bottom: 2rem; font-size: 1.5rem; font-weight: 700;">Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Location</h4>
+                            <p>Atteridgeville<br>Pretoria, South Africa</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>076 780 5455</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>Nsomacommunity@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3 style="color: var(--text-dark); margin-bottom: 2rem; font-size: 1.5rem; font-weight: 700;">Ways to Get Involved</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Volunteer</h4>
+                            <p>Join our team of dedicated volunteers and make a direct impact in transforming communities.</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Partner With Us</h4>
+                            <p>Collaborate with us to expand our reach and amplify our impact across more communities.</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Donate</h4>
+                            <p>Support our mission with financial contributions that directly fund our training programs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">
+                <span class="footer-highlight">&copy; 2025 Nsoma Community Development NPO</span> | All Rights Reserved
+            </p>
+            <p class="footer-tagline">Designed with 💚💛 in South Africa | Empowering Communities Through Skills Development</p>
+            <p class="footer-tagline">Website designed by <span class="footer-highlight">Maanda Netshisumbewa</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 58, 38, 0.98)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            } else {
+                navbar.style.background = 'rgba(15, 58, 38, 0.95)';
+                navbar.style.backdropFilter = 'blur(20px)';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-on-scroll');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section, .program-card, .value-card, .hero-card').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent.replace(/\D/g, ''));
+                const suffix = stat.textContent.replace(/[0-9]/g, '');
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + suffix;
+                }, 50);
+            });
+        }
+
+        // Trigger counter animation when hero section is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        heroObserver.observe(document.querySelector('.hero-stats'));
+
+        // Mobile menu functionality
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            nav.classList.toggle('nav-open');
+            menuBtn.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            const nav = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            nav.classList.remove('nav-open');
+            menuBtn.classList.remove('active');
+        }
+
+        // Close menu when clicking on nav links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!nav.contains(event.target) && !menuBtn.contains(event.target)) {
+                closeMenu();
+            }
+        });
+
+        // Enhanced button interactions
+        function addButtonEffects() {
+            const buttons = document.querySelectorAll('.btn');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+
+        // Contact button interactions
+        function setupContactButtons() {
+            // Make all contact items clickable
+            const contactItems = document.querySelectorAll('.contact-item');
+            
+            contactItems.forEach(item => {
+                const details = item.querySelector('.contact-details');
+                const heading = details.querySelector('h4').textContent.toLowerCase();
+                const content = details.querySelector('p').textContent;
+                
+                // Add pointer cursor and hover effect
+                item.style.cursor = 'pointer';
+                item.style.transition = 'all 0.3s ease';
+                
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                // Add functionality based on type
+                item.addEventListener('click', function() {
+                    switch(heading) {
+                        case 'phone':
+                            window.open('tel:+27767805455', '_self');
+                            showNotification('📞 Opening phone dialer...', 'success');
+                            break;
+                            
+                        case 'email':
+                            const subject = encodeURIComponent('Inquiry about Nsoma Community Development Programs');
+                            const body = encodeURIComponent('Hello Nsoma Team,\n\nI am interested in learning more about your community development programs.\n\nPlease contact me at your earliest convenience.\n\nThank you!');
+                            window.open(`mailto:Nsomacommunity@gmail.com?subject=${subject}&body=${body}`, '_self');
+                            showNotification('📧 Opening email client...', 'success');
+                            break;
+                            
+                        case 'location':
+                            const address = encodeURIComponent('Atteridgeville, Pretoria, South Africa');
+                            window.open(`https://www.google.com/maps/search/${address}`, '_blank');
+                            showNotification('🗺️ Opening location in maps...', 'success');
+                            break;
+                            
+                        case 'volunteer':
+                            const volunteerSubject = encodeURIComponent('Volunteer Application - Nsoma Community Development');
+                            const volunteerBody = encodeURIComponent('Hello Nsoma Team,\n\nI am interested in volunteering with your organization. I would like to learn more about volunteer opportunities and how I can contribute to your community development initiatives.\n\nPlease let me know about the next steps in the volunteer application process.\n\nThank you for the important work you do!\n\nBest regards');
+                            window.open(`mailto:Nsomacommunity@gmail.com?subject=${volunteerSubject}&body=${volunteerBody}`, '_self');
+                            showNotification('🤝 Opening volunteer inquiry email...', 'success');
+                            break;
+                            
+                        case 'partner with us':
+                            const partnerSubject = encodeURIComponent('Partnership Inquiry - Nsoma Community Development');
+                            const partnerBody = encodeURIComponent('Hello Nsoma Team,\n\nI am interested in exploring partnership opportunities with your organization. I believe our collaboration could help expand your reach and amplify your impact.\n\nI would appreciate the opportunity to discuss potential partnerships and how we can work together.\n\nPlease let me know when would be a good time to connect.\n\nBest regards');
+                            window.open(`mailto:Nsomacommunity@gmail.com?subject=${partnerSubject}&body=${partnerBody}`, '_self');
+                            showNotification('🤝 Opening partnership inquiry email...', 'success');
+                            break;
+                            
+                        case 'donate':
+                            showDonationModal();
+                            break;
+                    }
+                });
+            });
+        }
+
+        // Create donation modal
+        function showDonationModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 20px;
+                padding: 2.5rem;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                transform: scale(0.8);
+                transition: transform 0.3s ease;
+                position: relative;
+            `;
+            
+            modalContent.innerHTML = `
+                <div style="color: #2d7a4f; margin-bottom: 1.5rem;">
+                    <i class="fas fa-heart" style="font-size: 3rem;"></i>
+                </div>
+                <h3 style="color: #1a4a2e; margin-bottom: 1rem; font-size: 1.8rem;">Support Our Mission</h3>
+                <p style="color: #666; margin-bottom: 2rem; line-height: 1.6;">
+                    Your donation directly funds our community development programs, skills training, and youth empowerment initiatives. Every contribution makes a real difference in transforming lives.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                    <button class="donation-btn" data-amount="500" style="padding: 1rem; border: 2px solid #2d7a4f; background: white; color: #2d7a4f; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                        R500 - Fund Basic Training Materials
+                    </button>
+                    <button class="donation-btn" data-amount="1000" style="padding: 1rem; border: 2px solid #2d7a4f; background: #2d7a4f; color: white; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                        R1000 - Support One Student for a Month
+                    </button>
+                    <button class="donation-btn" data-amount="2500" style="padding: 1rem; border: 2px solid #2d7a4f; background: white; color: #2d7a4f; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                        R2500 - Fund Complete Skills Program
+                    </button>
+                    <button class="donation-btn" data-amount="custom" style="padding: 1rem; border: 2px solid #d4af37; background: #d4af37; color: white; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                        Custom Amount
+                    </button>
+                </div>
+                <p style="color: #888; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    This will open an email to discuss donation options. We accept bank transfers, EFT, and other secure payment methods.
+                </p>
+                <button id="closeDonationModal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; color: #999; cursor: pointer; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Add hover effects to donation buttons
+            const donationBtns = modalContent.querySelectorAll('.donation-btn');
+            donationBtns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+                
+                btn.addEventListener('click', function() {
+                    const amount = this.dataset.amount;
+                    handleDonation(amount);
+                    closeDonationModal();
+                });
+            });
+            
+            // Show modal
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                modalContent.style.transform = 'scale(1)';
+            }, 10);
+            
+            // Close modal functionality
+            function closeDonationModal() {
+                modal.style.opacity = '0';
+                modalContent.style.transform = 'scale(0.8)';
+                setTimeout(() => modal.remove(), 300);
+            }
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) closeDonationModal();
+            });
+            
+            document.getElementById('closeDonationModal').addEventListener('click', closeDonationModal);
+        }
+
+        // Handle donation process
+        function handleDonation(amount) {
+            let subject, body;
+            
+            if (amount === 'custom') {
+                subject = encodeURIComponent('Custom Donation Inquiry - Nsoma Community Development');
+                body = encodeURIComponent(`Hello Nsoma Team,
+
+I would like to make a donation to support your community development programs. Please provide me with information about:
+
+• Available payment methods (Bank transfer, EFT, etc.)
+• Banking details for donations
+• Any specific programs I can support
+• Tax-deductible receipt procedures
+
+I am committed to supporting your mission of empowering communities through skills development.
+
+Thank you for the important work you do!
+
+Best regards`);
+            } else {
+                subject = encodeURIComponent(`R${amount} Donation Inquiry - Nsoma Community Development`);
+                body = encodeURIComponent(`Hello Nsoma Team,
+
+I would like to make a donation of R${amount} to support your community development programs.
+
+Please provide me with:
+• Banking details for the donation
+• Confirmation of how this amount will be used
+• Tax-deductible receipt procedures
+• Any additional information needed
+
+I look forward to contributing to your mission of empowering communities.
+
+Thank you!
+
+Best regards`);
+            }
+            
+            window.open(`mailto:Nsomacommunity@gmail.com?subject=${subject}&body=${body}`, '_self');
+            showNotification(`💖 Thank you! Opening donation inquiry for ${amount === 'custom' ? 'custom amount' : 'R' + amount}...`, 'success');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#2d7a4f' : '#1a4a2e'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                z-index: 1000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                font-family: 'Inter', sans-serif;
+                font-weight: 500;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Gallery image interactions
+        function setupGalleryInteractions() {
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    // Create modal overlay
+                    const modal = document.createElement('div');
+                    modal.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.9);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 1000;
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                        cursor: pointer;
+                    `;
+                    
+                    const modalImg = document.createElement('img');
+                    modalImg.src = this.src;
+                    modalImg.alt = this.alt;
+                    modalImg.style.cssText = `
+                        max-width: 90%;
+                        max-height: 90%;
+                        border-radius: 12px;
+                        box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+                        transform: scale(0.8);
+                        transition: transform 0.3s ease;
+                    `;
+                    
+                    modal.appendChild(modalImg);
+                    document.body.appendChild(modal);
+                    
+                    setTimeout(() => {
+                        modal.style.opacity = '1';
+                        modalImg.style.transform = 'scale(1)';
+                    }, 10);
+                    
+                    modal.addEventListener('click', function() {
+                        modal.style.opacity = '0';
+                        modalImg.style.transform = 'scale(0.8)';
+                        setTimeout(() => modal.remove(), 300);
+                    });
+                });
+            });
+        }
+
+        // Copy contact info to clipboard
+        function setupCopyToClipboard() {
+            const contactItems = document.querySelectorAll('.contact-details p');
+            
+            contactItems.forEach(item => {
+                if (item.textContent.includes('@') || item.textContent.includes('076')) {
+                    const copyBtn = document.createElement('i');
+                    copyBtn.className = 'fas fa-copy';
+                    copyBtn.style.cssText = `
+                        margin-left: 10px;
+                        cursor: pointer;
+                        opacity: 0.7;
+                        transition: opacity 0.3s ease;
+                        font-size: 0.9rem;
+                    `;
+                    
+                    copyBtn.addEventListener('click', function() {
+                        navigator.clipboard.writeText(item.textContent.trim());
+                        showNotification('Copied to clipboard!', 'success');
+                        this.style.opacity = '1';
+                        setTimeout(() => this.style.opacity = '0.7', 1000);
+                    });
+                    
+                    copyBtn.addEventListener('mouseenter', function() {
+                        this.style.opacity = '1';
+                    });
+                    
+                    copyBtn.addEventListener('mouseleave', function() {
+                        this.style.opacity = '0.7';
+                    });
+                    
+                    item.appendChild(copyBtn);
+                }
+            });
+        }
+
+        // Initialize all button functionalities
+        document.addEventListener('DOMContentLoaded', function() {
+            addButtonEffects();
+            setupContactButtons();
+            setupGalleryInteractions();
+            setupCopyToClipboard();
+            
+            // Add ripple CSS
+            const style = document.createElement('style');
+            style.textContent = `
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.3);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    pointer-events: none;
+                }
+                
+                @keyframes ripple-animation {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .gallery-image {
+                    cursor: pointer;
+                    transition: transform 0.3s ease;
+                }
+                
+                .gallery-image:hover {
+                    transform: scale(1.05);
+                }
+                
+                .contact-item {
+                    transition: all 0.3s ease;
+                    border-radius: 12px;
+                    padding: 1rem;
+                }
+                
+                .contact-item:hover {
+                    background: rgba(45, 122, 79, 0.05);
+                }
+                
+                .contact-item.clickable {
+                    cursor: pointer;
+                }
+                
+                .contact-item.clickable:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+                }
+                
+                .contact-item .contact-icon {
+                    transition: all 0.3s ease;
+                }
+                
+                .contact-item:hover .contact-icon {
+                    transform: scale(1.1);
+                    color: var(--accent-green);
+                }
+            `;
+            document.head.appendChild(style);
+            
+            showNotification('Welcome to Nsoma Community Development! 🌟', 'success');
+        });
+    </script>
+</body>
+</html>
