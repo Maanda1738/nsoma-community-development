@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maanda1738.github.io/nsoma-community-development/sitemap.xml
