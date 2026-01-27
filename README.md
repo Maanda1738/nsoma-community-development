@@ -25,7 +25,7 @@ Nsoma Community Development NPO focuses on closing the gap between underdevelope
 
 ## Contact Information
 
-- **Location**: Atteridgeville, Pretoria, South Africa
+- **Location**: Stand T161 Phiphidi, Mreiks driving school offices
 - **Phone**: 076 780 5455
 - **Email**: Nsomacommunity@gmail.com
 
